@@ -1,0 +1,99 @@
+public class Main
+{
+    static class node 
+    {
+        node pre;
+        int data;
+        node next;
+        
+        node(int d)
+        {
+            data=d;
+            pre=null;
+            next=null;
+        }
+    }
+    static node head=null;
+    static void add(int d)
+    {
+        node n=new node(d);
+        if(head==null)
+        head=n;
+        else{
+            node temp=head;
+            while(temp.next!=null)
+            temp=temp.next;
+            temp.next=n;
+            n.pre=temp;
+        }
+    }
+    static void dis()
+    {
+        node temp=head;
+        node prv=null;
+        while(temp!=null)
+        {
+            prv=temp;
+            System.out.print(temp.data+" ");
+            temp=temp.next;
+        }
+        System.out.println("\nBackward");
+        while(prv!=null)
+        {
+          System.out.print(prv.data+" ");
+          prv=prv.pre;
+        }
+    }
+    static void ins(int p,int v)
+    {
+        node n=new node(v);
+        node temp=head;
+        while(temp.next!=null)
+        {
+            if(temp.data==p)
+            {
+                n.pre=temp;
+                n.next=temp.next;
+                temp.next.pre=n;
+                temp.next=n;
+            }
+            temp=temp.next;
+        }
+    }
+    static void inspr(int p,int v)
+    {
+        node n=new node(v);
+        node temp=head;
+        if(p==head.data)
+        {
+            temp.pre=n;
+            n.next=temp;
+            head=n;
+        }
+        else{
+        while(temp.next!=null)
+        {
+            if(temp.data==p)
+            {
+                n.next=temp;
+                n.pre=temp.pre;
+                temp.pre.next=n;
+                temp.pre=n;
+            }
+            temp=temp.next;
+        }
+        }
+    }
+	public static void main(String[] args) {
+	    add(123);
+	    add(56);
+	    add(1456);
+	    dis();
+	    System.out.println("\nAfter insert next");
+	    ins(56,678);
+	    dis();
+	    System.out.println("\nAfter insert pre");
+	    inspr(123,90);
+	    dis();
+	}
+}
